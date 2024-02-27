@@ -193,7 +193,12 @@ Category ids in annotations are not in [1, #categories]! We'll apply a mapping f
                         segm = mask_util.frPyObjects(segm, *segm["size"])
                 else:
                     # filter out invalid polygons (< 3 points)
-                    segm = [poly for poly in segm if len(poly) % 2 == 0 and len(poly) >= 6]
+                    try:
+                        segm = [poly for poly in segm if len(poly) % 2 == 0 and len(poly) >= 6]
+                    except:
+                        segm = [segm]
+                        segm = [poly for poly in segm if len(poly) % 2 == 0 and len(poly) >= 6]
+                        
                     if len(segm) == 0:
                         return segm, False
 
