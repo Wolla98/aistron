@@ -123,9 +123,14 @@ def register_coco(root):
         join(root, "coco/val2017/")
     )
 
-    register_aistron_cocolike_instances("coco_2017", _get_coco_instances_meta(COCO_CATEGORIES),
-        join(root, "coco/annotations/instances_amodal_train2017_aistron.json"),
+    register_aistron_cocolike_instances("coco_asbu_train", _get_coco_instances_meta(COCO_CATEGORIES),
+        join(root, "coco/annotations/coco_asbu_train2017_aistron.json"),
         join(root, "coco/train2017/")
+    )
+
+    register_aistron_cocolike_instances("coco_asbu_test", _get_coco_instances_meta(COCO_CATEGORIES),
+        join(root, "coco/annotations/coco_asbu_test2017_aistron.json"),
+        join(root, "coco/val2017/")
     )
 
 
