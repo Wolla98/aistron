@@ -103,13 +103,18 @@ class AmodalCOCOeval:
             if type(segm) == list:
                 # polygon -- a single object might consist of multiple parts
                 # we merge all parts into one mask rle code
-                if len(segm) == 0:
+                if (len(segm) == 0) or ((len(segm) == 1) and (len(segm[0]) == 0)):
                     # empty mask
                     blank_mask = np.zeros((h, w), dtype=np.uint8)
                     rle = maskUtils.encode(np.asfortranarray(blank_mask))
                 else:
-                    rles = maskUtils.frPyObjects(segm, h, w)
-                    rle = maskUtils.merge(rles)
+                    try:
+                        rles = maskUtils.frPyObjects(segm, h, w)
+                        rle = maskUtils.merge(rles) 
+                    except:
+                        segm = np.array(segm).astype(np.double)
+                        rles = maskUtils.frPyObjects(segm, h, w)
+                        rle = maskUtils.merge(rles) 
             elif type(segm['counts']) == list:
                 # uncompressed RLE
                 rle = maskUtils.frPyObjects(segm, h, w)

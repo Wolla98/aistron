@@ -3,8 +3,8 @@ MODEL:
   ROI_HEADS:
     NUM_CLASSES: 80
 DATASETS:
-  TRAIN: ("cocoa_cls_train",)
-  TEST: ("cocoa_cls_val",)
+  TRAIN: ("cocoa_cls_train_modified",)
+  TEST: ("cocoa_cls_val_modified",)
 SOLVER:
   IMS_PER_BATCH: 2
   BASE_LR: 0.0005

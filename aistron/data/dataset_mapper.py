@@ -200,10 +200,18 @@ class AmodalDatasetMapper:
             annotation["amodal_segm"] = self._transform_segm(annotation["amodal_segm"], transforms, image_size)
         if "visible_segm" in annotation:
             annotation["visible_segm"] = self._transform_segm(annotation["visible_segm"], transforms, image_size)
-        if "background_objs_segm" in annotation:
-            annotation["background_objs_segm"] = self._transform_segm(annotation["background_objs_segm"], transforms, image_size)
-        if "occluder_segm" in annotation:
-            annotation["occluder_segm"] = self._transform_segm(annotation["occluder_segm"], transforms, image_size)
+
+        if ("background_objs_segm" in annotation):
+            if (annotation["background_objs_segm"] == None):
+                annotation["background_objs_segm"] = self._transform_segm([], transforms, image_size)
+            else:
+                annotation["background_objs_segm"] = self._transform_segm(annotation["background_objs_segm"], transforms, image_size)
+
+        if ("occluder_segm" in annotation):
+            if (annotation["occluder_segm"] == None):
+                annotation["occluder_segm"] = self._transform_segm([], transforms, image_size)
+            else:
+                annotation["occluder_segm"] = self._transform_segm(annotation["occluder_segm"], transforms, image_size)
 
         if "keypoints" in annotation:
             keypoints = transform_keypoint_annotations(

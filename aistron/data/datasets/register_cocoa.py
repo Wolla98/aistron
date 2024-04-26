@@ -142,6 +142,16 @@ def register_cocoa_cls(root):
         join(root, "COCOA/val2014/")
     )
 
+    register_aistron_cocolike_instances("cocoa_cls_train_modified", _get_cocoa_instances_meta(COCOA_cls_CATEGORIES),
+        join(root, "COCOA/annotations/cocoa_cls_train2014_no_bg_occ_segm.json"),
+        join(root, "COCOA/train2014/")
+    )
+
+    register_aistron_cocolike_instances("cocoa_cls_val_modified", _get_cocoa_instances_meta(COCOA_cls_CATEGORIES),
+        join(root, "COCOA/annotations/cocoa_cls_val2014_no_bg_occ_segm.json"),
+        join(root, "COCOA/val2014/")
+    )
+
 _root = os.getenv("AISTRON_DATASETS", "datasets")
 register_cocoa(_root)
 register_cocoa_cls(_root)

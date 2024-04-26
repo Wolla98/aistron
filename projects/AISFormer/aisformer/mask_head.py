@@ -21,6 +21,9 @@ from detectron2.config import configurable
 from detectron2.structures import Instances
 from detectron2.modeling.roi_heads.mask_head import ROI_MASK_HEAD_REGISTRY
 
+import cv2 as cv
+import numpy as np
+
 
 __all__= ["AISFormer"]
 
@@ -147,7 +150,7 @@ class AISFormer(nn.Module):
         total_num_masks = pred_mask_logits.size(0)
         mask_side_len = pred_mask_logits.size(2)
         assert pred_mask_logits.size(2) == pred_mask_logits.size(3), "Mask prediction must be square!"
-
+        
         gt_classes = []
         gt_masks = []
         for instances_per_image in instances:
@@ -199,6 +202,8 @@ class AISFormer(nn.Module):
             gt_masks_bool.numel() - num_positive, 1.0
         )
         false_negative = (mask_incorrect & gt_masks_bool).sum().item() / max(num_positive, 1.0)
+
+        import pdb; pdb.set_trace()
 
         storage = get_event_storage()
         storage.put_scalar("aisformer/accuracy_{}".format(mask_type), mask_accuracy)
